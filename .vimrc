@@ -1,13 +1,10 @@
-set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936
+set encoding=utf-8 fileencodings=utf-8
 """"""""""""""""""""""VUNDLE PLUGIN""""""""""""""""""""
 
-" 不兼容vi
 set nocompatible
 
-" 搜索到文件两端时不重新搜索
 set nowrapscan
 
-" 不检测文件类型
 filetype off
 
 " set the runtime path to include Vundle and initialize
@@ -23,18 +20,13 @@ Plugin 'gmarik/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 
-Plugin 'fatih/vim-go'
 Plugin 'kabbamine/vcoolor.vim'
-Plugin 'guns/vim-clojure-highlight'
 Plugin 'guns/vim-sexp'
-Plugin 'guns/vim-clojure-static'
 Plugin 'tpope/vim-fireplace'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'mattn/emmet-vim'
-Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'jelera/vim-javascript-syntax'
-Plugin 'walm/jshint.vim'
 Plugin 'moll/vim-node'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Yggdroot/indentLine'
@@ -45,7 +37,6 @@ if has('python')
     Plugin 'SirVer/ultisnips'
 endif
 Plugin 'axiaoxin/favorite-vim-colorscheme'
-Plugin 'junegunn/vim-emoji'
 Plugin 'mhinz/vim-startify'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'suan/vim-instant-markdown'
@@ -59,7 +50,6 @@ Plugin 'scrooloose/nerdtree'
 
 call vundle#end()
 
-" 针对不同的文件类型采用不同的缩进格式
 filetype plugin indent on
 
 " Brief help
@@ -76,103 +66,77 @@ filetype plugin indent on
 
 """"""""""""""""""""""BASE CONFIG"""""""""""""""""""""""
 
-" 取消备份
 set nobackup
 set noswapfile
 set noundofile
 
-" 解决consle输出乱码
-language messages zh_CN.utf-8
+language messages cs_CZ.utf-8
 
-" 状态栏配置
 set laststatus=2
 
-" 打开语法高亮
 syntax enable
 
-" 开启语法检测
 syntax on
 
-" vimrc文件修改之后自动加载
 autocmd! bufwritepost .vimrc source %
 
-" 文件修改之后自动载入
 set autoread
 
-" yy直接复制到系统剪切板（For macvim）
 "set clipboard=unnamed
 
-" 高亮搜索命中的文本
 set hlsearch
 
-" 随着键入即时搜索
 set incsearch
 
-" 搜索时忽略大小写
 set ignorecase
 
-" 有一个或以上大写字母时仍大小写敏感
 set smartcase
 
 set guifont=Menlo:h14
 
 colorscheme Tomorrow-Night-Bright
-" 使用自带配色
 "colorscheme elflord
 "set background=dark
 
-" 在状态栏显示正在输入的命令
 set showcmd
 
-" 显示括号配对情况
 set showmatch
 
-" :next, :make 命令之前自动保存
 set autowrite
 
-" 允许使用鼠标
 set mouse=a
 
-" 设置行号
 set nu
 
-" 退格键可用
 set backspace=2
 
-" 退格键一次删掉4个空格
 set smarttab
 
-" 缩进
 set autoindent
 set smartindent
 
-" 保存文件时自动删除行尾空格或Tab
 autocmd BufWritePre * :%s/\s\+$//e
 
-" 保存文件时自动删除末尾空行
 autocmd BufWritePre * :%s/^$\n\+\%$//ge
 
-" 填充Tab
+" Tab
 set expandtab
 set tabstop=4
 set shiftwidth=4
 set shiftround
-" 配置go文件tab显示方式：不填充tab但tab显示为4个空格的长度
+
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
-" 代码折叠 光标在缩进下方时用za命令折叠或展开
+
 set fdm=indent
-" 默认展开
+
 set foldlevel=99
 
-" 突出显示当前行，列
 "set cursorline
 "set cursorcolumn
 
-" 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制
 set t_ti= t_te=
 
-" 打开文件时始终跳转到上次光标所在位置
 autocmd BufReadPost *
       \ if ! exists("g:leave_my_cursor_position_alone") |
       \     if line("'\"") > 0 && line ("'\"") <= line("$") |
@@ -182,50 +146,48 @@ autocmd BufReadPost *
 
 
 """""""""""""""""""""""""KEY MAPPING""""""""""""""""""""
-" j k 移动行的时候光标始终在屏幕中间
+
 nnoremap j jzz
 nnoremap k kzz
 
-" 映射切换buffer的键位
 nnoremap [b :bp<CR>
 nnoremap ]b :bn<CR>
 
-" 映射切换tab的键位
 nnoremap [t :tabp<CR>
 nnoremap ]t :tabn<CR>
 
-" normal模式下Ctrl+c全选并复制到系统剪贴板(linux必须装有vim-gnome)
+" normal mode Ctrl+c
 nmap <C-c> gg"+yG
 
-" visual模式下Ctrl+c复制选中内容到剪贴板
+" visual mode Ctrl+c
 vmap <C-c> "+y
 
-" Ctrl+v原样粘贴剪切板内容
+" Ctrl+v
 inoremap <C-v> <ESC>"+pa
 
-" w!!写入只读文件
+" w!! rewrite readonly file
 cmap w!! w !sudo tee >/dev/null %
 
-" F2切换行号显示
+" F2 ?
 nnoremap <F2> :set nonu!<CR>:set foldcolumn=0<CR>
 
-" F3打开目录树
+" F3 toggle nerdtree
 nmap <silent> <F3> :NERDTreeToggle<CR>
 
-" F4显示TagList
+" F4 Taglist
 nmap <silent> <F4> :TagbarToggle<CR>
 
-" F5运行脚本
+" F5 virtualenv ?
 if exists("$VIRTUAL_ENV")
     autocmd FileType python map <buffer> <F5> :!$VIRTUAL_ENV'/bin/python' %:p<CR>
 else
     autocmd FileType python map <buffer> <F5> :!python %:p<CR>
 endif
 
-" <F6> 新建标签页
+" <F6> new tab
 map <F6> <Esc>:tabnew<CR>
 
-" <F7> 拷贝粘贴代码不破坏缩进
+" <F7> toggle back?
 set pastetoggle=<F7>
 
 if has("win64") || has("win32")
@@ -240,19 +202,15 @@ else
     autocmd FileType python map <buffer> <F9> :!yapf -i %:p --style=pep8;isort %:p;<CR><CR>
 endif
 
-" 给当前单词添加引号
+" ?
 nnoremap w" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap w' viw<esc>a'<esc>hbi'<esc>lel
 
-" 在Normal Mode和Visual/Select Mode下，利用Tab键和Shift-Tab键来缩进文本
+" Change edit mode ?? Visual/Select/Normal..
 nnoremap > >>
 nnoremap < <<
 vnoremap > >gv
 vnoremap < <gv
-
-" 左右分割窗口Ctrl+w +v
-" 上下分割窗口Ctrl+w +s
-" 关闭窗口Ctrl+w  +q
 
 " quicker window switching
 nnoremap <C-h> <C-w>h
@@ -267,59 +225,33 @@ nnoremap <C-Right> <C-w>>
 nnoremap <C-Up> <C-w>+
 nnoremap <C-Down> <C-w>-
 
-" emoji
-imap <C-e> <C-X><C-U>
-
-" 编译golang同时运行测试
-" run :GoBuild or :GoTestCompile based on the go file
-function! s:build_go_files()
-  let l:file = expand('%')
-  if l:file =~# '^\f\+_test\.go$'
-    call go#test#Test(0, 1)
-  elseif l:file =~# '^\f\+\.go$'
-    call go#cmd#Build(0)
-  endif
-endfunction
-autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-" 运行golang
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
-
-" golang错误之间跳转
-map <C-n> :cnext<CR>
-map <C-m> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
-
 """"""""""""""""""""""""""""""PLUGIN CONFIG""""""""""""""""""""""""""
 " NerdCommenter
 let g:NERDSpaceDelims=1
 
 " NERDTREE
-" 不显示的文件
 let NERDTreeIgnore=['\.pyc$', '\~$']
 " show nerdtree when starts up
-"autocmd vimenter * NERDTree
-" 退出最后一个buff时也退出nerdtree
+autocmd vimenter * NERDTree
+" ?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " CtrlP
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_cmd = 'CtrlPMixed'
 
-"Ctrl-X Ctrl-U emoji补全
-set completefunc=emoji#complete
-
 " instant-markdown
 let g:instant_markdown_slow = 1
 
 " airline
 let g:airline_section_y = '%{strftime("%H:%M")}'
-" 开启tabline
+" ? tabline
 let g:airline#extensions#tabline#enabled = 1
-" tabline中当前buffer两端的分隔字符
+" tabline ?
 let g:airline#extensions#tabline#left_sep = ' '
-" tabline中未激活buffer两端的分隔字符
+" tabline ?
 let g:airline#extensions#tabline#left_alt_sep = '|'
-" tabline中buffer显示编号
+" tabline ?
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " jedi
@@ -387,12 +319,3 @@ let g:vcool_ins_rgb_map = '<leader>cpr'       " Insert rgb color.
 let g:vcool_ins_hsl_map = '<leader>cph'       " Insert hsl color.
 let g:vcool_ins_rgba_map = '<leader>cpra'      " Insert rgba color.
 
-" vim-go
-let g:go_list_type = "quickfix"  " 使用quickfix显示错误信息
-let g:go_fmt_command = "goimports"  " 使用goimports格式化代码并自动整理import
-let g:go_highlight_types = 1 " 高亮显示type后的名称
-let g:go_highlight_fields = 1 " 高亮显示结构体字段
-let g:go_highlight_function_calls = 1  " 高亮显示函数名
-let g:go_highlight_operators = 1    " 高亮运算符
-let g:go_highlight_extra_types = 1  " 高亮其他types
-let g:go_highlight_build_constraints = 1  " 高亮编译标签
