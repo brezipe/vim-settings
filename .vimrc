@@ -143,8 +143,6 @@ set foldlevel=99
 "set cursorline
 "set cursorcolumn
 
-set t_ti= t_te=
-
 autocmd BufReadPost *
       \ if ! exists("g:leave_my_cursor_position_alone") |
       \     if line("'\"") > 0 && line ("'\"") <= line("$") |
