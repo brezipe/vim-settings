@@ -115,6 +115,8 @@ set smarttab
 set autoindent
 set smartindent
 
+set hidden
+
 autocmd BufWritePre * :%s/\s\+$//e
 
 autocmd BufWritePre * :%s/^$\n\+\%$//ge
@@ -125,7 +127,13 @@ set tabstop=4
 set shiftwidth=4
 set shiftround
 
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+set switchbuf=usetab
+nnoremap <C-Right> :bn<CR>
+nnoremap <C-Left> :bp<CR>
+nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
+
+"autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 
 set fdm=indent
@@ -150,8 +158,8 @@ autocmd BufReadPost *
 nnoremap j jzz
 nnoremap k kzz
 
-nnoremap [b :bp<CR>
-nnoremap ]b :bn<CR>
+"nnoremap [b :bp<CR>
+"nnoremap ]b :bn<CR>
 
 nnoremap [t :tabp<CR>
 nnoremap ]t :tabn<CR>
@@ -188,7 +196,7 @@ endif
 map <F6> <Esc>:tabnew<CR>
 
 " <F7> toggle back?
-set pastetoggle=<F7>
+"set pastetoggle=<F7>
 
 if has("win64") || has("win32")
     " <F8> sort import and auto pep8
@@ -220,8 +228,8 @@ nnoremap <C-l> <C-w>l
 
 " quicker window resize
 nnoremap <C-Enter> <C-w>=
-nnoremap <C-Left> <C-w><
-nnoremap <C-Right> <C-w>>
+"nnoremap <C-Left> <C-w><
+"nnoremap <C-Right> <C-w>>
 nnoremap <C-Up> <C-w>+
 nnoremap <C-Down> <C-w>-
 
@@ -261,7 +269,8 @@ let g:jedi#completions_command = "<C-n>"
 " flake8
 let g:flake8_show_in_file = 1
 let g:flake8_show_in_gutter = 1
-autocmd! BufRead,BufWritePost *.py call Flake8()
+"autocmd! BufRead,BufWritePost *.py call Flake8()
+autocmd FileType python map <buffer> <F7> :call Flake8()<CR>
 
 " gitgutter
 let g:gitgutter_sign_modified = '*'
@@ -318,4 +327,3 @@ let g:vcoolor_map = '<leader>cp'
 let g:vcool_ins_rgb_map = '<leader>cpr'       " Insert rgb color.
 let g:vcool_ins_hsl_map = '<leader>cph'       " Insert hsl color.
 let g:vcool_ins_rgba_map = '<leader>cpra'      " Insert rgba color.
-
