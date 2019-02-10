@@ -8,13 +8,11 @@ This VIM settings is for Python programmers on Mac OSX, may be you will write so
 
 VIM - Vi IMproved 8.1 (2018 May 18, compiled Oct 10 2018 15:24:01)
 
-MacOS X (unix) version
-
-CentOS 7
+Debian
 
 ### Dependences
 
-    brew install vim git npm ctags
+    apt install vim git ctags
     sudo npm -g install instant-markdown-d jshint
     sudo pip install isort jedi yapf flake8 virtualenvwrapper autopep8
 
@@ -35,7 +33,6 @@ CentOS 7
 - [vim-instant-markdown](https://github.com/suan/vim-instant-markdown) Instant Markdown previews from VIM!
 - [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors) True Sublime Text style multiple selections for Vim
 - [vim-startify](https://github.com/mhinz/vim-startify) A fancy start screen for Vim
-- [vim-emoji](https://github.com/junegunn/vim-emoji) Named Emoji in Vim
 - [vim-json-line-format](https://github.com/axiaoxin/vim-json-line-format) format json line
 - [jedi-vim](https://github.com/davidhalter/jedi-vim) Using the jedi autocompletion library for VIM.
 - [vim-flake8](https://github.com/nvie/vim-flake8) Flake8 plugin for Vim (I like it more than [syntastic](https://github.com/scrooloose/syntastic), it's better.)
@@ -46,10 +43,8 @@ CentOS 7
 - [jshint](https://github.com/jshint/jshint) JSHint is a tool that helps to detect errors and potential problems in your JavaScript code
 - [vim-javascript-syntax](https://github.com/jelera/vim-javascript-syntax) Enhanced javascript syntax file for Vim
 - [vim-coloresque](https://github.com/gorodinskiy/vim-coloresque) css/less/sass/html color preview for vim
-- [vim-table-mode](https://github.com/dhruvasagar/vim-table-mode) VIM Table Mode for instant table creation.
 - [emmet-vim](https://github.com/mattn/emmet-vim) emmet for vim: <http://mattn.github.io/emmet-vim>
 - [vCoolor](https://github.com/KabbAmine/vCoolor.vim) Simple color selector/picker plugin for Vim.
-- [vim-go](https://github.com/fatih/vim-go) Go development plugin for Vim
 
 ### Short Keys
 
@@ -75,7 +70,6 @@ CentOS 7
 - change surround: `csXY`
 - del surround: `dsX`
 - comment/uncomment: `\cc`/`\cu`
-- table mode: `\tm`
 - color picker: `\cp` `\cpr` `\cph` `\cpra`
 
 
@@ -162,4 +156,3 @@ vim-table-mode
 
 use vundle, just need copy `.vimrc` to your HOME path and run `:PluginInstall` in vim.
 
-if added vim-go, must need your vim version > 7.4+， and need run `:GoInstallBinaries` to install all the vim-go necessary binaries
